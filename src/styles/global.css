@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: var(--font-bespoke-stencil), sans-serif;
+  --default-font-family: var(--font-supreme), sans-serif;
+}

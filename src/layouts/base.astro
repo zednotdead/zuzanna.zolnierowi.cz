@@ -1,4 +1,6 @@
 ---
+import "../styles/global.css";
+import { Font } from "astro:assets";
 ---
 
 <html lang="en">
@@ -8,9 +10,11 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <Font cssVariable="--font-bespoke-stencil" />
+    <Font cssVariable="--font-supreme" />
     <title>Astro</title>
   </head>
-  <body>
+  <body class="w-full bg-black text-white">
     <slot />
   </body>
 </html>
