@@ -1,19 +1,14 @@
 ---
-import Base from "../layouts/base.astro";
-import * as summaryFile from "../contents/summary.md";
-import * as skillsFile from "../contents/skills.md";
+import Base from "@/layouts/base.astro";
+import { getSections } from "@/contents/sections";
+import { getExperience } from "@/contents/experience";
 
-const summary = await summaryFile.compiledContent();
-const skills = await skillsFile.compiledContent();
-
-const sections = [
-  { title: "Summary", content: summary },
-  { title: "Skills", content: skills },
-];
+const sections = await getSections();
+const experience = await getExperience();
 ---
 
 <Base>
-  <main class="flex flex-col mx-auto max-w-4xl px-8 gap-8 my-16">
+  <main class="flex flex-col mx-auto max-w-4xl px-8 gap-4 print:gap-4 my-16">
     <section class="break-after-avoid-page">
       <h1>
         <span class="block text-4xl font-black mb-2">Zuzanna Żołnierowicz</span>
@@ -22,10 +17,11 @@ const sections = [
     </section>
 
     {sections.map(({ title, content }) => (
-      <section class="prose not-print:prose-invert text-justify prose-headings:print:font-sans text-lg">
+      <section class="prose not-print:prose-invert text-justify prose-headings:print:font-sans text-lg print:prose-headings:my-2 print:prose-p:mb-1">
         <h2>{title}</h2>
         <Fragment set:html={content} />
       </section>
     ))}
+    <pre>{JSON.stringify(experience, null, 2)}</pre>
   </main>
 </Base>

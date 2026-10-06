@@ -1,4 +1,6 @@
 ---
+title: Skills
+order: 10
 ---
 
 ### Languages & Core Web

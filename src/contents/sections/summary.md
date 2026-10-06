@@ -1,4 +1,6 @@
 ---
+title: Summary
+order: 0
 ---
 
 **Full-Stack Software Engineer** with 5+ years of experience designing and shipping high-traffic e-commerce, SaaS, and medtech products, including leading critical components for Allegro, Poland's leading marketplace.
