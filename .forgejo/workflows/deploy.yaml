@@ -1,0 +1,40 @@
+---
+on: [push]
+jobs:
+  build:
+    runs-on: docker
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Upload artifact
+        uses: forgejo/upload-artifact@v4
+        with:
+          path: ./dist
+  deploy:
+    runs-on: docker
+    needs:
+      - build
+    steps:
+      - name: Download built site
+        uses: forgejo/download-artifact@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+      - name: Deploy to Cloudflare Pages
+        run: npx wrangler@latest pages deploy ./artifact --project-name=zuzanna
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
