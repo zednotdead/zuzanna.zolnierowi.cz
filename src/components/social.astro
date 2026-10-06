@@ -1,0 +1,25 @@
+---
+interface Props {
+  name: string;
+  address: string;
+  icon: string;
+  print?: string;
+}
+
+const { name, address, icon, print } = Astro.props;
+const printHiddenClass = print ? "print:hidden" : "";
+---
+
+<a class="flex flex-row items-center" href={address}>
+  {print && (
+    <div
+      class="w-5 h-5 *:w-full *:h-full mr-[1ch] not-print:hidden"
+      set:html={print}
+    />
+  )}
+  <div
+    class:list={["w-5 h-5 *:w-full *:h-full mr-2", printHiddenClass]}
+    set:html={icon}
+  />
+  <b class="font-black mr-1">{name}:</b> {address}
+</a>

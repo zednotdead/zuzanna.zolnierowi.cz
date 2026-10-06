@@ -3,57 +3,71 @@ import Base from "@/layouts/base.astro";
 import { getSections } from "@/contents/sections";
 import { getExperience } from "@/contents/experience";
 
+import LinkedIn from "@thesvg/icons/linkedin";
+import Github from "@thesvg/icons/github";
+import Mail from "@thesvg/icons/mailbox";
+
+import Social from "@/components/social.astro";
+import Experience from "@/components/experience.astro";
+import Section from "@/components/section.astro";
+
 const sections = await getSections();
 const experience = await getExperience();
+
+const socials = [
+  {
+    name: "Github",
+    address: "https://github.com/zednotdead",
+    icon: Github.variants.dark,
+    print: Github.svg,
+  },
+  {
+    name: "LinkedIn",
+    address: "https://www.linkedin.com/in/zuzanna-zolnierowicz/",
+    icon: LinkedIn.svg,
+  },
+  {
+    name: "Email",
+    address: "zuzanna@zolnierowi.cz",
+    href: "mailto:zuzanna@zolnierowi.cz",
+    icon: Mail.svg,
+  },
+];
 ---
 
 <Base title="Zuzanna Żołnierowicz - Software Engineer">
   <main class="flex flex-col mx-auto max-w-4xl px-8 gap-4 print:gap-4 my-16">
-    <section aria-labelledby="whoami" class="break-after-avoid-page">
+    <section
+      aria-labelledby="whoami"
+      class="print:break-inside-avoid flex flex-col gap-4"
+    >
       <h1 id="whoami">
         <span class="block text-4xl font-black mb-2">Zuzanna Żołnierowicz</span>
         <span class="block text-3xl font-bold">Software Engineer</span>
       </h1>
+
+      <ul class="flex flex-col gap-4">
+        {socials.map((soc) => (
+          <li>
+            <Social {...soc} />
+          </li>
+        ))}
+      </ul>
     </section>
 
-    {sections.map(({ title, content }) => (
-      <section
-        aria-labelledby={`section-${title.toLocaleLowerCase()}`}
-        class="prose not-print:prose-invert text-justify prose-headings:print:font-sans text-lg print:prose-headings:my-2 print:prose-p:mb-1"
-      >
-        <h2 id={`section-${title.toLocaleLowerCase()}`}>{title}</h2>
-        <Fragment set:html={content} />
-      </section>
+    {sections.map((sect) => (
+      <Section {...sect} />
     ))}
 
-    <section
-      aria-labelledby="job-experience"
-      class="prose not-print:prose-invert text-justify prose-headings:print:font-sans text-lg print:prose-p:mb-1"
-    >
-      <h2 id="job-experience">Job experience</h2>
-      {experience.map(
-        ({ company, url, address, started, ended, content, job_title }) => (
-          <>
-            <div class="grid gap-2 grid-cols-[1fr_auto] grid-rows-2 items-baseline">
-              <h3 class="block mt-0 mb-0 row-start-1 row-end-1">{company}</h3>
-              <span
-                aria-label={`Worked from ${started} until ${ended}`}
-                class="block row-start-1 row-end-1"
-              >
-                {started} &dash; {ended}
-              </span>
-              <span>{job_title}</span>
-              {url && address && (
-                <a class="justify-self-end-safe" href={url}>
-                  {address}
-                </a>
-              )}
-            </div>
-
-            <Fragment set:html={content} />
-          </>
-        ),
-      )}
+    <section aria-labelledby="job-experience">
+      <h2 class="text-3xl font-bold mb-4" id="job-experience">
+        Job experience
+      </h2>
+      <div class="flex flex-col gap-4">
+        {experience.map((exp) => (
+          <Experience {...exp} />
+        ))}
+      </div>
     </section>
   </main>
 </Base>

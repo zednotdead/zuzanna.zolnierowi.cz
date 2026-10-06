@@ -1,0 +1,30 @@
+---
+import type { ExperienceRendered } from "@/utils/experience";
+type Props = ExperienceRendered;
+
+const { started, ended, content, address, job_title, company, url } =
+  Astro.props;
+---
+
+<article
+  aria-label={`${job_title} at ${company}`}
+  class="flex flex-col print:break-inside-avoid prose not-print:prose-invert prose:max-w-full text-justify prose-headings:print:font-sans text-lg print:prose-p:mb-1"
+>
+  <div class="grid gap-2 grid-cols-[1fr_auto] grid-rows-2 items-baseline print:break-inside-avoid">
+    <h3 class="block mt-0 mb-0 row-start-1 row-end-1">{company}</h3>
+    <span
+      aria-label={`Worked from ${started} until ${ended}`}
+      class="block row-start-1 row-end-1"
+    >
+      {started} &dash; {ended}
+    </span>
+    <span>{job_title}</span>
+    {url && address && (
+      <a class="justify-self-end-safe" href={url}>
+        {address}
+      </a>
+    )}
+  </div>
+
+  <Fragment set:html={content} />
+</article>

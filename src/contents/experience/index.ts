@@ -3,9 +3,10 @@ import {
   parseExperience,
   renderExperience,
   compareStartDates,
+  type ExperienceRendered,
 } from "@/utils/experience";
 
-export function getExperience() {
+export function getExperience(): Promise<ExperienceRendered[]> {
   return Promise.all(
     Object.values(
       import.meta.glob<Experience>("./*.md", {
