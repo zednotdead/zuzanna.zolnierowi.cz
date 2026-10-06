@@ -14,7 +14,7 @@ import { Font } from "astro:assets";
     <Font cssVariable="--font-supreme" />
     <title>Astro</title>
   </head>
-  <body class="w-full bg-black text-white">
+  <body class="w-full not-print:bg-slate-950 not-print:text-white print:font-sans-serif">
     <slot />
   </body>
 </html>

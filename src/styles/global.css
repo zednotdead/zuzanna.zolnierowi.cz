@@ -1,6 +1,16 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+:root {
+  @apply text-[12pt] print:font-sans print:text-[10pt];
+}
 
 @theme {
   --font-display: var(--font-bespoke-stencil), sans-serif;
+  --font-sans: var(--font-supreme), sans-serif;
   --default-font-family: var(--font-supreme), sans-serif;
+}
+
+h1, h2, h3, h4 {
+  @apply font-display print:font-sans;
 }
