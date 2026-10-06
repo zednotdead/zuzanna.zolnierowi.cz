@@ -2,15 +2,18 @@
 interface Props {
   name: string;
   address: string;
+  href?: string;
   icon: string;
   print?: string;
+  nolink?: boolean;
 }
 
-const { name, address, icon, print } = Astro.props;
+const { name, address, icon, print, href } = Astro.props;
 const printHiddenClass = print ? "print:hidden" : "";
+const url = href ?? address;
 ---
 
-<a class="flex flex-row items-center" href={address}>
+<a class="flex flex-row items-center" href={url}>
   {print && (
     <div
       class="w-5 h-5 *:w-full *:h-full mr-[1ch] not-print:hidden"

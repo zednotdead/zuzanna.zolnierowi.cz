@@ -3,6 +3,7 @@
 
 :root {
   @apply text-[12pt] print:font-sans print:text-[10pt];
+  font-variant-ligatures: none;
 }
 
 @theme {
