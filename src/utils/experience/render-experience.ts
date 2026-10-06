@@ -5,6 +5,14 @@ import {
   RENDERED_DATE_FORMAT,
 } from ".";
 
+function extractAddress(address: string | undefined): string | undefined {
+  if (!address) return undefined;
+  
+  const addr = new URL(address);
+
+  return addr.hostname;
+}
+
 export async function renderExperience(
   input: ExperienceParsed,
 ): Promise<ExperienceRendered> {
@@ -14,11 +22,17 @@ export async function renderExperience(
     ? format(input.frontmatter.ended, RENDERED_DATE_FORMAT)
     : "";
   const content = await input.compiledContent();
+  const job_title = input.frontmatter.job_title;
+  const url = input.frontmatter.url;
+  const address = extractAddress(url);
 
   return {
     company,
     started,
     ended,
     content,
+    job_title,
+    url,
+    address,
   };
 }

@@ -9,19 +9,51 @@ const experience = await getExperience();
 
 <Base>
   <main class="flex flex-col mx-auto max-w-4xl px-8 gap-4 print:gap-4 my-16">
-    <section class="break-after-avoid-page">
-      <h1>
+    <section aria-labelledby="whoami" class="break-after-avoid-page">
+      <h1 id="whoami">
         <span class="block text-4xl font-black mb-2">Zuzanna Żołnierowicz</span>
         <span class="block text-3xl font-bold">Software Engineer</span>
       </h1>
     </section>
 
     {sections.map(({ title, content }) => (
-      <section class="prose not-print:prose-invert text-justify prose-headings:print:font-sans text-lg print:prose-headings:my-2 print:prose-p:mb-1">
-        <h2>{title}</h2>
+      <section
+        aria-labelledby={`section-${title.toLocaleLowerCase()}`}
+        class="prose not-print:prose-invert text-justify prose-headings:print:font-sans text-lg print:prose-headings:my-2 print:prose-p:mb-1"
+      >
+        <h2 id={`section-${title.toLocaleLowerCase()}`}>{title}</h2>
         <Fragment set:html={content} />
       </section>
     ))}
-    <pre>{JSON.stringify(experience, null, 2)}</pre>
+
+    <section
+      aria-labelledby="job-experience"
+      class="prose not-print:prose-invert text-justify prose-headings:print:font-sans text-lg print:prose-p:mb-1"
+    >
+      <h2 id="job-experience">Job experience</h2>
+      {experience.map(
+        ({ company, url, address, started, ended, content, job_title }) => (
+          <>
+            <div class="grid gap-2 grid-cols-[1fr_auto] grid-rows-2 items-baseline">
+              <h3 class="block mt-0 mb-0 row-start-1 row-end-1">{company}</h3>
+              <span
+                aria-label={`Worked from ${started} until ${ended}`}
+                class="block row-start-1 row-end-1"
+              >
+                {started} &dash; {ended}
+              </span>
+              <span>{job_title}</span>
+              {url && address && (
+                <a class="justify-self-end-safe" href={url}>
+                  {address}
+                </a>
+              )}
+            </div>
+
+            <Fragment set:html={content} />
+          </>
+        ),
+      )}
+    </section>
   </main>
 </Base>
