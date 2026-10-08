@@ -3,15 +3,40 @@
 
 :root {
   @apply text-[12pt] print:font-sans print:text-[10pt];
+  @apply prose-h2:text-3xl prose-h3:text-2xl;
+  @apply print:prose-headings:my-2 print:prose-p:mb-1 print:prose-headings:font-sans;
   font-variant-ligatures: none;
 }
 
 @theme {
-  --font-display: var(--font-bespoke-stencil), sans-serif;
+  --font-display: var(--font-gambarino), sans-serif;
   --font-sans: var(--font-supreme), sans-serif;
   --default-font-family: var(--font-supreme), sans-serif;
 }
 
 h1, h2, h3, h4 {
   @apply font-display print:font-sans;
+}
+
+@utility fullbleed-padding-* {
+  --viewport-padding: --spacing(--value(integer));
+}
+
+@utility fullbleed-wrap-* {
+  @apply grid;
+  grid-template-columns:
+    1fr
+    min(--value(--container-*), calc(100% - var(--viewport-padding) * 2))
+    1fr;
+
+  column-gap: var(--viewport-padding);
+
+  & > * {
+    grid-column: 2;
+  }
+
+  .fullbleed {
+    grid-column: 1 / -1;
+    margin-inline: calc(var(--viewport-padding) * -1);
+  }
 }

@@ -7,7 +7,7 @@ const { title, content } = Astro.props;
 
 <section
   aria-labelledby={`section-${title.toLocaleLowerCase()}`}
-  class="prose not-print:prose-invert max-w-full text-justify prose-headings:print:font-sans text-lg print:prose-headings:my-2 print:prose-p:mb-1"
+  class="prose not-print:prose-invert max-w-full text-justify text-lg"
 >
   <h2 id={`section-${title.toLocaleLowerCase()}`}>{title}</h2>
   <Fragment set:html={content} />

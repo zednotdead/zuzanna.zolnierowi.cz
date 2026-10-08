@@ -17,8 +17,8 @@ export default defineConfig({
     },
     {
       provider: fontProviders.fontshare(),
-      name: "Bespoke Stencil",
-      cssVariable: "--font-bespoke-stencil",
+      name: "Gambarino",
+      cssVariable: "--font-gambarino",
       weights: [100, 200, 300, 400, 500, 600, 700, 800, 900],
     },
   ],

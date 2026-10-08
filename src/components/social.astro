@@ -9,20 +9,15 @@ interface Props {
 }
 
 const { name, address, icon, print, href } = Astro.props;
+const baseIconClass = "h-fit w-fit *:size-4 *:aspect-square inline-block mr-2";
 const printHiddenClass = print ? "print:hidden" : "";
 const url = href ?? address;
 ---
 
-<a class="flex flex-row items-center" href={url}>
+<a class="inline align-center" href={url}>
   {print && (
-    <div
-      class="w-5 h-5 *:w-full *:h-full mr-[1ch] not-print:hidden"
-      set:html={print}
-    />
+    <div class:list={[baseIconClass, "not-print:hidden"]} set:html={print} />
   )}
-  <div
-    class:list={["w-5 h-5 *:w-full *:h-full mr-2", printHiddenClass]}
-    set:html={icon}
-  />
+  <div class:list={[baseIconClass, printHiddenClass]} set:html={icon} />
   <b class="font-black mr-1">{name}:</b> {address}
 </a>
