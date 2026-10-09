@@ -15,4 +15,8 @@
     enable = true;
     lsp.enable = true;
   };
+
+  scripts.n.exec = ''
+    npm run "$@";
+  '';
 }
