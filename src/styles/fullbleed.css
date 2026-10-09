@@ -1,0 +1,22 @@
+@utility fullbleed-padding-* {
+  --viewport-padding: --spacing(--value(integer));
+}
+
+@utility fullbleed-wrap-* {
+  @apply grid;
+  grid-template-columns:
+    1fr
+    min(--value(--container-*), calc(100% - var(--viewport-padding) * 2))
+    1fr;
+
+  column-gap: var(--viewport-padding);
+
+  & > * {
+    grid-column: 2;
+  }
+
+  .fullbleed {
+    grid-column: 1 / -1;
+    margin-inline: calc(var(--viewport-padding) * -1);
+  }
+}
